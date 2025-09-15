@@ -49,6 +49,12 @@
   product(bool, AllocIVtableStubInNonProfiledHotCodeHeap, false,               \
           "Allocate itable/vtable in NonProfiledHotCodeHeap")                  \
                                                                                \
+  product(bool, PolymorphicInlining, false,                                    \
+          "Inline caching multiple type of receivers")                         \
+                                                                               \
+  product(intx, MorphismLimit, 2,                                              \
+          "Max call site's morphism we care about")                            \
+                                                                               \
   AIEXT_ONLY(product(bool, UseAIExtension, false, EXPERIMENTAL,                \
                      "Enable Alibaba Dragonwell AI Extension"))                \
                                                                                \

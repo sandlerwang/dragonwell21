@@ -3947,6 +3947,21 @@ jint Arguments::parse(const JavaVMInitArgs* initial_cmd_args) {
     return JNI_EINVAL;
   }
 
+  // user explicitly set MorphismLimit
+  if (!FLAG_IS_DEFAULT(MorphismLimit) && MorphismLimit > 2) {
+    FLAG_SET_ERGO(PolymorphicInlining, true);
+    FLAG_SET_ERGO(TypeProfileWidth, 8);
+    if (MorphismLimit > 8) {
+      FLAG_SET_ERGO(MorphismLimit, 8);
+      warning("support MorphismLimit up to 8.");
+    }
+  }
+
+  if (PolymorphicInlining && FLAG_IS_DEFAULT(MorphismLimit)) {
+    FLAG_SET_ERGO(TypeProfileWidth, 8);
+    FLAG_SET_ERGO(MorphismLimit, 6);
+  }
+
   // Set object alignment values.
   set_object_alignment();
 
